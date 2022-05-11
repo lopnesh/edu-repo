@@ -2,43 +2,38 @@ pipeline {
     agent any
     stages {
         stage("Web") {
-            environment {
-                FILENAME = 'web'
-            }
             steps {
-                build 'ECRpipeline'
+                build 'ECRpipeline', parameters: [
+                string(name: 'FILENAME', value: "web")
+                ]
             }
         }
         stage("DB") {
-            environment {
-                FILENAME = 'db'
-            }
             steps {
-                build 'ECRpipeline'
+                build 'ECRpipeline', parameters: [
+                string(name: 'FILENAME', value: "db")
+                ]
             }
         }
         stage("DataService") {
-            environment {
-                FILENAME = 'dataservice'
-            }
             steps {
-                build 'ECRpipeline'
+                build 'ECRpipeline', parameters: [
+                string(name: 'FILENAME', value: "dataservice")
+                ]
             }
         }
         stage("LoadBalancer") {
-            environment {
-                FILENAME = 'loadbalancer'
-            }
             steps {
-                build 'ECRpipeline'
+                build 'ECRpipeline', parameters: [
+                string(name: 'FILENAME', value: "loadbalancer")
+                ]
             }
         }
         stage("LogService") {
-            environment {
-                FILENAME = 'logservice'
-            }
             steps {
-                build 'ECRpipeline'
+                build 'ECRpipeline', parameters: [
+                string(name: 'FILENAME', value: "logservice")
+                ]
             }
         }
     }
