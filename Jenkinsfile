@@ -4,35 +4,35 @@ pipeline {
         stage("Web") {
             steps {
                 build job: 'ECRpipeline', parameters: [
-                string(name: 'FILENAME', value: "web")
+                string(name: 'FILENAME', value: "web"), propagate: true, wait: true
                 ]
             }
         }
         stage("DB") {
             steps {
                 build job: 'ECRpipeline', parameters: [
-                string(name: 'FILENAME', value: "db")
+                string(name: 'FILENAME', value: "db"), propagate: true, wait: true
                 ]
             }
         }
         stage("DataService") {
             steps {
                 build job: 'ECRpipeline', parameters: [
-                string(name: 'FILENAME', value: "dataservice")
+                string(name: 'FILENAME', value: "dataservice"), propagate: true, wait: true
                 ]
             }
         }
         stage("LoadBalancer") {
             steps {
                 build job: 'ECRpipeline', parameters: [
-                string(name: 'FILENAME', value: "loadbalancer")
+                string(name: 'FILENAME', value: "loadbalancer"), propagate: true, wait: true
                 ]
             }
         }
         stage("LogService") {
             steps {
                 build job: 'ECRpipeline', parameters: [
-                string(name: 'FILENAME', value: "logservice")
+                string(name: 'FILENAME', value: "logservice"), propagate: true, wait: true
                 ]
             }
         }
