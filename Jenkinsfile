@@ -5,31 +5,41 @@ pipeline {
             environment {
                 FILENAME = 'web'
             }
-            build 'ECRpipeline'
+            steps {
+                build 'ECRpipeline'
+            }
         }
         stage("DB") {
             environment {
                 FILENAME = 'db'
             }
-            build 'ECRpipeline'
+            steps {
+                build 'ECRpipeline'
+            }
         }
         stage("DataService") {
             environment {
                 FILENAME = 'dataservice'
             }
-            build 'ECRpipeline'
+            steps {
+                build 'ECRpipeline'
+            }
         }
         stage("LoadBalancer") {
             environment {
                 FILENAME = 'loadbalancer'
             }
-            build 'ECRpipeline'
+            steps {
+                build 'ECRpipeline'
+            }
         }
         stage("LogService") {
             environment {
                 FILENAME = 'logservice'
             }
-            build 'ECRpipeline'
+            steps {
+                build 'ECRpipeline'
+            }
         }
     }
 }
