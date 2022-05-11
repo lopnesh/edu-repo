@@ -3,31 +3,31 @@ pipeline {
     stages {
         stage("Web") {
             environment {
-                FILENAME = web
+                FILENAME = 'web'
             }
             build 'ECRpipeline'
         }
         stage("DB") {
             environment {
-                FILENAME = db
+                FILENAME = 'db'
             }
             build 'ECRpipeline'
         }
         stage("DataService") {
             environment {
-                FILENAME = dataservice
+                FILENAME = 'dataservice'
             }
             build 'ECRpipeline'
         }
         stage("LoadBalancer") {
             environment {
-                FILENAME = loadbalancer
+                FILENAME = 'loadbalancer'
             }
             build 'ECRpipeline'
         }
         stage("LogService") {
             environment {
-                FILENAME = logservice
+                FILENAME = 'logservice'
             }
             build 'ECRpipeline'
         }
