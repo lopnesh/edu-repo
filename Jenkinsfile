@@ -1,41 +1,35 @@
 pipeline {
     agent any
-    environment {
-        registry = "086913749727.dkr.ecr.eu-central-1.amazonaws.com/${DOCKER-FILE}"
-    }
-   
     stages {
-        stage('Cloning Git') {
-            steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/lopnesh/edu-repo/']]])     
+        stage("Web") {
+            environment {
+                DOCKER-FILE = "web"
             }
+            build 'ECRpipeline'
         }
-  
-    // Building Docker images
-    stage('Building image') {
-      steps{
-        script {
-            sh "docker build -f Dockerfile-${DOCKER-FILE}. -t registry"
+        stage("DB") {
+            environment {
+                DOCKER-FILE = "db"
+            }
+            build 'ECRpipeline'
         }
-      }
-    }
-   
-    // Uploading Docker images into AWS ECR
-    stage('Pushing to ECR') {
-     steps{  
-         script {
-                sh 'aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 086913749727.dkr.ecr.eu-central-1.amazonaws.com'
-                sh 'docker push 086913749727.dkr.ecr.eu-central-1.amazonaws.com/${DOCKER-FILE}:latest'
-         }
+        stage("DataService") {
+            environment {
+                DOCKER-FILE = "dataservice"
+            }
+            build 'ECRpipeline'
         }
-      }
-   
-         // Stopping Docker containers for cleaner Docker run
-     stage('stop previous containers') {
-         steps {
-            sh 'docker ps -f name=mypythonContainer -q | xargs --no-run-if-empty docker container stop'
-            sh 'docker container ls -a -fname=mypythonContainer -q | xargs -r docker container rm'
-         }
-       }
+        stage("LoadBalancer") {
+            environment {
+                DOCKER-FILE = "loadbalancer"
+            }
+            build 'ECRpipeline'
+        }
+        stage("LogService") {
+            environment {
+                DOCKER-FILE = "logservice"
+            }
+            build 'ECRpipeline'
+        }
     }
 }
