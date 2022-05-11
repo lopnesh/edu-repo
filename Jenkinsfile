@@ -3,31 +3,31 @@ pipeline {
     stages {
         stage("Web") {
             environment {
-                DOCKER-FILE = web
+                FILENAME = web
             }
             build 'ECRpipeline'
         }
         stage("DB") {
             environment {
-                DOCKER-FILE = db
+                FILENAME = db
             }
             build 'ECRpipeline'
         }
         stage("DataService") {
             environment {
-                DOCKER-FILE = dataservice
+                FILENAME = dataservice
             }
             build 'ECRpipeline'
         }
         stage("LoadBalancer") {
             environment {
-                DOCKER-FILE = loadbalancer
+                FILENAME = loadbalancer
             }
             build 'ECRpipeline'
         }
         stage("LogService") {
             environment {
-                DOCKER-FILE = logservice
+                FILENAME = logservice
             }
             build 'ECRpipeline'
         }
