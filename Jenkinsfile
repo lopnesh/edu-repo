@@ -1,38 +1,49 @@
 pipeline {
     agent any
-    options {
-        skipStagesAfterUnstable()
+    environment {
+        registry = "086913749727.dkr.ecr.eu-central-1.amazonaws.com/test"
     }
+   
     stages {
-         stage('Clone repository') { 
-            steps { 
-                script{
-                checkout scm
-                }
-            }
-        }
-
-        stage('Build') { 
-            steps { 
-                script{
-                 app = docker.build("underwater")
-                }
-            }
-        }
-        stage('Test'){
+        stage('Cloning Git') {
             steps {
-                 echo 'Empty'
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/akannan1087/myPythonDockerRepo']]])     
             }
         }
-        stage('Deploy') {
-            steps {
-                script{
-                        docker.withRegistry('https://086913749727.dkr.ecr.us-east-1.amazonaws.com', 'ecr:eu-central-1:aws-credentials') {
-                    app.push("${env.BUILD_NUMBER}")
-                    app.push("latest")
-                    }
-                }
-            }
+  
+    // Building Docker images
+    stage('Building image') {
+      steps{
+        script {
+          dockerImage = docker.build registry
         }
+      }
+    }
+   
+    // Uploading Docker images into AWS ECR
+    stage('Pushing to ECR') {
+     steps{  
+         script {
+                sh 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 086913749727.dkr.ecr.us-east-2.amazonaws.com'
+                sh 'docker push 086913749727.dkr.ecr.us-east-2.amazonaws.com/test:latest'
+         }
+        }
+      }
+   
+         // Stopping Docker containers for cleaner Docker run
+     stage('stop previous containers') {
+         steps {
+            sh 'docker ps -f name=mypythonContainer -q | xargs --no-run-if-empty docker container stop'
+            sh 'docker container ls -a -fname=mypythonContainer -q | xargs -r docker container rm'
+         }
+       }
+      
+    stage('Docker Run') {
+     steps{
+         script {
+                sh 'docker run -d -p 8096:5000 --rm --name mypythonContainer 086913749727.dkr.ecr.us-east-2.amazonaws.com/test:latest'
+            }
+      }
+    }
     }
 }
