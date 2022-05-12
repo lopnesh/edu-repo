@@ -4,35 +4,35 @@ pipeline {
         stage("Web") {
             steps {
                 build job: 'ECRpipeline', parameters: [
-                [$class 'StringParameterValue', name: 'FILENAME', value: "web"]
+                string(name: 'FILENAME', value: 'web')
                 ]
             }
         }
         stage("DB") {
             steps {
                 build job: 'ECRpipeline', parameters: [
-                [$class 'StringParameterValue', name: 'FILENAME', value: "db"]
+                string(name: 'FILENAME', value: 'db')
                 ]
             }
         }
         stage("DataService") {
             steps {
                 build job: 'ECRpipeline', parameters: [
-                [$class 'StringParameterValue', name: 'FILENAME', value: "dataservice"]
+                string(name: 'FILENAME', value: 'dataservice')
                 ]
             }
         }
         stage("LoadBalancer") {
             steps {
                 build job: 'ECRpipeline', parameters: [
-                [$class 'StringParameterValue', name: 'FILENAME', value: "loadbalancer"]
+                string(name: 'FILENAME', value: 'loadbalancer')
                 ]
             }
         }
         stage("LogService") {
             steps {
                 build job: 'ECRpipeline', parameters: [
-                [$class 'StringParameterValue', name: 'FILENAME', value: "logservice"]
+                string(name: 'FILENAME', value: 'logservice')
                 ]
             }
         }
