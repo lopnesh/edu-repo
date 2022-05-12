@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-      label 'docker-in-docker'
-    }
+    agent any
     stages {
         stage("Web") {
             steps {
