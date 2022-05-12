@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        docker {image 'docker:latest'}
+      label 'docker-in-docker'
     }
     stages {
         stage("Web") {
