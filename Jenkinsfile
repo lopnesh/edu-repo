@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+    docker {
+        label 'dind'
+    }
+    }
     stages {
         stage("Web") {
             steps {
