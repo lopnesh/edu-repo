@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-    docker {
-        image 'docker:latest'
-        label 'dind'
-    }
-    }
+    agent any
     stages {
         stage("Web") {
             steps {
