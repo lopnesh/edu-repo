@@ -10,11 +10,11 @@ all: build-all-images publish-all-images build-chart publish-chart
 
 build-image-%:
 	@echo "+ $@"
-	docker build -t ${ECR_BASE}/jaeger-rd-$*:${VERSION} -f Dockerfile-$* .
+	docker build -t ${ECR_BASE}/$*:${VERSION} -f Dockerfile-$* .
 
 publish-image-%: build-image-%
 	@echo "+ $@"
-	docker push ${ECR_BASE}/jaeger-rd-$*:${VERSION}
+	docker push ${ECR_BASE}/$*:${VERSION}
 
 build-all-images: $(addprefix build-image-,$(SERVICES))
 publish-all-images: $(addprefix publish-image-,$(SERVICES))
