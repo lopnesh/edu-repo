@@ -30,9 +30,9 @@ services:
       - logservice
     command: -loadbalancer http://loadbalancer:2001 -logservice http://logservice:6000
   cacheservice:
-    image: cacheservice:latest
+    image: redis:latest
     ports:
-      - "5000:3000"
+      - "5000:6379"
   dataservice:
     build:
       context: .
@@ -72,10 +72,6 @@ services:
       dockerfile: Dockerfile-logservice
     ports:
       - "6000:6000"
-  pinger:
-    image: pinger:latest
-    ports:
-      - "7000:7000"
   jaeger:
     image: jaegertracing/all-in-one:latest
     ports:
