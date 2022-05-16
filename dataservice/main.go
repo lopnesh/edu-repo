@@ -46,8 +46,8 @@ func main() {
 	listen_port := getEnv(envListenPort, "4000")
 	db_host := getEnv(envDBHost, "db")
 	db_port := getEnv(envDBPort, "3306")
-	db_user := getEnv(envDBUser, "root")
-	db_password := getEnv(envDBPassword, "toor")
+	db_user := getEnv(envDBUser, "user")
+	db_password := getEnv(envDBPassword, "pass")
 	db_name := getEnv(envDBName, "blog")
 
 	connection_string := fmt.Sprintf("%s:%s@tcp(%s:%s)/%v?charset=utf8&parseTime=True&loc=Local",
