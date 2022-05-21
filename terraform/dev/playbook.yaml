@@ -43,9 +43,12 @@
         repo: https://github.com/lopnesh/edu-repo.git
         dest: /src/edu-repo
     
-    - name: user permisions
-      ansible.builtin.shell: chown +x /src/edu-repo/wait-for
-      become: true
+    - name: wait-for permisions
+         ansible.builtin.file:
+          path: /src/edu-repo/wait-for
+          owner: root
+          group: root
+          mode: '0755'
 
     - name: Run docker-compose.yaml
       community.docker.docker_compose:
