@@ -37,6 +37,7 @@
     - name: user permisions
       ansible.builtin.shell: chown $USER /var/run/docker.sock
       become: true
+      warn: false
 
     - name: Git clone
       ansible.builtin.git:
