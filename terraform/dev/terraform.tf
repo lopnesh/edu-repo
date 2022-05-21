@@ -12,6 +12,30 @@ locals {
   key_name         = "ansible-da"
 }
 
+resource "aws_vpc" "dev" {
+  cidr_block = "10.10.10.0/24"
+}
+
+resource "aws_security_group" "dev-sg" {
+  name   = "dev-sg"
+  vpc_id = aws_vpc.dev.id
+
+dynamic "ingress" {
+    for_each = ["22", "80", "3000"]
+    content {
+      from_port = ingress.value
+      to_port   = ingress.value
+      protocol  = "tcp"
+    }
+  }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
 provider "aws" {
   region = "eu-central-1"
 }
@@ -45,7 +69,7 @@ resource "aws_instance" "web" {
     connection {
       type        = "ssh"
       user        = local.ssh_user
-      private_key = file(local.private_key_path)
+      private_key = local.key_name
       host        = aws_instance.web.public_ip
     }
   }
