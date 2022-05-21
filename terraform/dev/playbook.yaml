@@ -44,11 +44,11 @@
         dest: /src/edu-repo
     
     - name: wait-for permisions
-         ansible.builtin.file:
-          path: /src/edu-repo/wait-for
-          owner: root
-          group: root
-          mode: '0755'
+      ansible.builtin.file:
+        path: /src/edu-repo/wait-for
+        owner: root
+        group: root
+        mode: '0755'
 
     - name: Run docker-compose.yaml
       community.docker.docker_compose:
