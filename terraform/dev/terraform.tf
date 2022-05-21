@@ -16,6 +16,17 @@ resource "aws_vpc" "dev" {
   cidr_block = "10.10.10.0/24"
 }
 
+resource "aws_subnet" "dev-subnet" {
+  vpc_id                  = aws_vpc.dev.id
+  cidr_block              = "10.10.10.0/24"
+  map_public_ip_on_launch = true
+  availability_zone       = "eu-central-1a"
+
+  tags = {
+    "Name" = "dev-subnet"
+  }
+}
+
 resource "aws_security_group" "dev-sg" {
   name   = "dev-sg"
   vpc_id = aws_vpc.dev.id
@@ -59,6 +70,7 @@ data "aws_ami" "ubuntu" {
 resource "aws_instance" "web" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
+  subnet_id                   = aws_subnet.dev-subnet.id
   associate_public_ip_address = true
   vpc_security_group_ids = [aws_security_group.dev-sg.id]
   key_name                    = local.key_name
