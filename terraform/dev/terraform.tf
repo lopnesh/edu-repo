@@ -10,7 +10,7 @@ terraform {
 locals {
   ssh_user         = "ubuntu"
   key_name         = "ansible-da"
-  private_key_path = "~/.ssh/authorized_keys"
+  private_key_path = "~/.ssh/ansible-da.pem"
 }
 
 resource "aws_vpc" "dev" {
