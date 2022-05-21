@@ -88,7 +88,7 @@ resource "aws_instance" "web" {
     }
   }
   provisioner "local-exec" {
-    command = "ansible-playbook -i ${aws_instance.web.public_ip} playbook.yaml"
+    command = "ansible-playbook -i ${aws_instance.web.public_ip}, --private-key ${local.private_key_path} playbook.yaml"
   }
   depends_on = [aws_security_group.dev-sg]
 }
