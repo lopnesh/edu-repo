@@ -14,7 +14,7 @@ RUN apk update && apk upgrade && apk add bash coreutils curl
 
 COPY wait-for /usr/local/bin/
 
-RUN chmod a+x wait-for
+RUN chmod a+x /usr/local/bin/wait-for
 
 # Install golang-migrate for DB schema migration
 WORKDIR /tmp
