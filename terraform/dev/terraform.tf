@@ -10,6 +10,7 @@ terraform {
 locals {
   ssh_user         = "ubuntu"
   key_name         = "ansible-da"
+  private_key_path = "~/.ssh/authorized_keys"
 }
 
 resource "aws_vpc" "dev" {
@@ -81,8 +82,9 @@ resource "aws_instance" "web" {
     connection {
       type        = "ssh"
       user        = local.ssh_user
-      private_key = local.key_name
+      private_key = file(local.private_key_path)
       host        = aws_instance.web.public_ip
+      
     }
   }
   provisioner "local-exec" {
