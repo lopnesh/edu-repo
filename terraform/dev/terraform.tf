@@ -17,12 +17,20 @@ resource "aws_vpc" "dev" {
   cidr_block = "10.10.10.0/24"
 }
 
+resource "aws_internet_gateway" "dev" {
+  vpc_id = aws_vpc.dev.id
+
+  tags = {
+    Name = "dev"
+  }
+}
+
 resource "aws_route_table" "dev" {
   vpc_id = aws_vpc.dev.id
 
   route {
     cidr_block = "10.10.10.0/24"
-    gateway_id = "igw-d60498bd"
+    gateway_id = aws_internet_gateway.dev.id
   }
 
 
