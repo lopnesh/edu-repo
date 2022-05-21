@@ -13,29 +13,15 @@ locals {
   private_key_path = "~/.ssh/ansible-da.pem"
 }
 
-resource "aws_vpc" "dev" {
-  cidr_block = "10.10.10.0/24"
-}
-
-resource "aws_internet_gateway" "dev" {
-  vpc_id = aws_vpc.dev.id
-
-  tags = {
-    Name = "dev"
-  }
-}
-
-resource "aws_route_table" "dev" {
-  vpc_id = aws_vpc.dev.id
-
-  route {
-    cidr_block = "10.10.10.0/24"
-    gateway_id = aws_internet_gateway.dev.id
-  }
-
+resource "aws_vpc" "dev-vpc" {
+  cidr_block           = "10.10.10.0/24"
+  enable_dns_support   = true
+  enable_dns_hostnames = true
+  enable_classiclink   = false
+  instance_tenancy     = "default"
 
   tags = {
-    Name = "dev"
+    "Name" = "dev-vpc"
   }
 }
 
@@ -50,9 +36,35 @@ resource "aws_subnet" "dev-subnet" {
   }
 }
 
+resource "aws_internet_gateway" "dev-igw" {
+  vpc_id = aws_vpc.dev-vpc.id
+
+  tags = {
+    "Name" = "dev-igw"
+  }
+}
+
+resource "aws_route_table" "dev-rt" {
+  vpc_id = aws_vpc.dev-vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.dev-igw.id
+  }
+
+  tags = {
+    Name = "dev-rt"
+  }
+}
+
+resource "aws_route_table_association" "dev-public-subnet-1" {
+  subnet_id      = aws_subnet.dev-subnet.id
+  route_table_id = aws_route_table.dev-rt.id
+}
+
 resource "aws_security_group" "dev-sg" {
   name   = "dev-sg"
-  vpc_id = aws_vpc.dev.id
+  vpc_id = aws_vpc.dev-vpc.id
 
 dynamic "ingress" {
     for_each = ["22", "80", "3000"]
