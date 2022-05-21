@@ -60,7 +60,7 @@ resource "aws_instance" "web" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
   associate_public_ip_address = true
-  security_groups             = [aws_vpc.dev.vpc_security_group_ids]
+  vpc_security_group_ids = [aws_security_group.dev-sg.id]
   key_name                    = local.key_name
   
   provisioner "remote-exec" {
