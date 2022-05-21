@@ -35,13 +35,18 @@
         update_cache: true
     
     - name: user permisions
-      ansible.builtin.shell: sudo chown $USER /var/run/docker.sock
+      ansible.builtin.shell: chown $USER /var/run/docker.sock
+      become: true
 
     - name: Git clone
       ansible.builtin.git:
         repo: https://github.com/lopnesh/edu-repo.git
         dest: /src/edu-repo
     
+    - name: user permisions
+      ansible.builtin.shell: chown +x /src/edu-repo/wait-for
+      become: true
+
     - name: Run docker-compose.yaml
       community.docker.docker_compose:
         project_src: /src/edu-repo

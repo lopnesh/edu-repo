@@ -33,7 +33,7 @@ services:
   cacheservice:
     image: redis:latest
     ports:
-      - "5000:6379"
+      - "6379:6379"
   dataservice:
     build:
       context: .
