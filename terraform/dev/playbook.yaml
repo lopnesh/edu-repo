@@ -33,11 +33,6 @@
           - docker-registry
         state: latest
         update_cache: true
-    
-    - name: user permisions
-      ansible.builtin.shell: chown $USER /var/run/docker.sock
-      become: true
-      warn: false
 
     - name: Git clone
       ansible.builtin.git:
@@ -55,4 +50,5 @@
       community.docker.docker_compose:
         project_src: /src/edu-repo
         state: absent
+      become: true
     
