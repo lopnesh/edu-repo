@@ -11,6 +11,7 @@ locals {
   ssh_user         = "ubuntu"
   key_name         = "ansible-da"
   private_key_path = "~/.ssh/ansible-da.pem"
+  playbook_path    = "~/edu-repo/terraform/dev/playbook.yaml"
 }
 
 resource "aws_vpc" "dev-vpc" {
@@ -123,7 +124,7 @@ resource "aws_instance" "web" {
     }
   }
   provisioner "local-exec" {
-    command = "ansible-playbook -i ${aws_instance.web.public_ip}, --private-key ${local.private_key_path} playbook.yaml"
+    command = "ansible-playbook -i ${aws_instance.web.public_ip}, --private-key ${local.private_key_path} ${local.playbook_path}"
   }
   depends_on = [aws_security_group.dev-sg]
 }

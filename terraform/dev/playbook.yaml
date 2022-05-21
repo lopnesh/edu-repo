@@ -43,5 +43,5 @@
     
     - name: Run docker-compose.yaml
         docker_compose:
-          project_src: /src/edu-repo
+        project_src: /src/edu-repo
     
