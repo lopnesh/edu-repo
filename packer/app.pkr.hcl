@@ -23,10 +23,7 @@ source "amazon-ebs" "basic-example" {
   instance_type =  "t2.micro"
   ssh_username =  "ubuntu"
   ami_name =  "packer_AWS {{timestamp}}"
-  assume_role {
-        role_arn     = "arn:aws:iam::086913749727:role/ECR-role"
-        session_name = "SESSION_NAME"
-    }
+  iam_instance_profile = "arn:aws:iam::086913749727:instance-profile/ECR-role"
 }
 
 build {
