@@ -7,20 +7,9 @@ packer {
   }
 }
 
-variable "aws_access_key" {
-  type = string
-  default = "secret.aws_access_key"
-}
-
-// export PKR_VAR_aws_secret_key=$YOURSECRETKEY
-variable "aws_secret_key" {
-  type = string
-  default = "aws_secret_key"
-}
-
 source "amazon-ebs" "basic-example" {
-  access_key = var.aws_access_key
-  secret_key =  var.aws_secret_key
+  access_key = $AWS_ACCESS_KEY_ID
+  secret_key =  $AWS_SECRET_ACCESS_KEY
   region =  "eu-central-1"
   source_ami =  "ami-015c25ad8763b2f11"
   instance_type =  "t2.micro"
