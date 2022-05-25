@@ -7,9 +7,16 @@ packer {
   }
 }
 
+{
+  "variables": {
+    "access_key": "{{env `AWS_ACCESS_KEY_ID`}}"
+    "secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}"
+  }
+}
+
 source "amazon-ebs" "basic-example" {
-  access_key = AWS_ACCESS_KEY_ID
-  secret_key =  AWS_SECRET_ACCESS_KEY
+  access_key = var.access_key
+  secret_key =  var.secret_key
   region =  "eu-central-1"
   source_ami =  "ami-015c25ad8763b2f11"
   instance_type =  "t2.micro"
