@@ -19,20 +19,5 @@ resource "aws_instance" "web" {
   vpc_security_group_ids = [aws_security_group.dev-sg.id]
   key_name                    = local.key_name
   
-  provisioner "remote-exec" {
-    inline = ["echo 'Wait until SSH is ready'"]
-
-    connection {
-      type        = "ssh"
-      user        = local.ssh_user
-      private_key = file(local.private_key_path)
-      host        = aws_instance.web.public_ip
-      
-    }
-  }
-  provisioner "local-exec" {
-    command = "ansible-playbook -i ${aws_instance.web.public_ip}, --private-key ${local.private_key_path} ${local.playbook_path}"
-  }
-  depends_on = [aws_security_group.dev-sg]
 }
 
