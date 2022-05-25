@@ -10,6 +10,7 @@
           - ca-certificates
           - lsb-release
           - gnupg
+          - awscli
         state: latest
         update_cache: true
 
@@ -38,7 +39,15 @@
       ansible.builtin.git:
         repo: https://github.com/lopnesh/edu-repo.git
         dest: /src/edu-repo
-  
+    
+    - name: login to ECR
+      shell: aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 086913749727.dkr.ecr.eu-central-1.amazonaws.com
+
+    - name: test docker-compose
+      docker_compose:
+        project_src: /src/edu-repo
+        state: present
+
     - name: Copy service file
       ansible.builtin.copy:
         src: docker-up.service
