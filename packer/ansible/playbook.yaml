@@ -55,11 +55,11 @@
         group: root
         mode: '0644'
 
-    - name: Just force systemd to re-execute itself (2.8 and above)
+    - name: Just force systemd to re-execute itself
       ansible.builtin.systemd:
         daemon_reexec: yes
 
-    - name: Enable service httpd and ensure it is not masked
+    - name: Enable service docker-up
       ansible.builtin.systemd:
         name: docker-up
         enabled: yes
