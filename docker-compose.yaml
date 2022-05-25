@@ -1,9 +1,7 @@
 version: '3'
 services:
   db:
-    build:
-      context: .
-      dockerfile: Dockerfile-db
+    image: 086913749727.dkr.ecr.eu-central-1.amazonaws.com/db:latest
     command: --default-authentication-plugin=mysql_native_password
     ports:
       - "3306:3306"
@@ -13,9 +11,7 @@ services:
       MYSQL_PASSWORD: pass
       MYSQL_DATABASE: blog
   web-one:
-    build:
-      context: .
-      dockerfile: Dockerfile-web
+    image: 086913749727.dkr.ecr.eu-central-1.amazonaws.com/web:latest
     ports:
       - "3000:3000"
     environment:
@@ -35,9 +31,7 @@ services:
     ports:
       - "6379:6379"
   dataservice:
-    build:
-      context: .
-      dockerfile: Dockerfile-dataservice
+    image: 086913749727.dkr.ecr.eu-central-1.amazonaws.com/dataservice:latest
     ports:
       - "4000:4000"
     environment:
@@ -51,9 +45,7 @@ services:
     depends_on:
       - db
   loadbalancer:
-    build:
-      context: .
-      dockerfile: Dockerfile-loadbalancer
+    image: 086913749727.dkr.ecr.eu-central-1.amazonaws.com/loadbalancer:latest
     ports:
       - "2000:2000"
       - "2001:2001"
@@ -68,9 +60,7 @@ services:
     depends_on:
       - logservice
   logservice:
-    build:
-      context: .
-      dockerfile: Dockerfile-logservice
+    image: 086913749727.dkr.ecr.eu-central-1.amazonaws.com/logservice:latest
     ports:
       - "6000:6000"
   jaeger:

@@ -39,7 +39,28 @@
         repo: https://github.com/lopnesh/edu-repo.git
         dest: /src/edu-repo
     
-    - name: test docker-compose
-      docker_compose:
-        project_src: /src/edu-repo
-        state: present
+    - name: Copy shell script
+      ansible.builtin.copy:
+        src: docker-up.sh
+        dest: /usr/bin/docker-up.sh
+        owner: root
+        group: root
+        mode: u+rw,g+rw,o+rwx
+
+    - name: Copy service file
+      ansible.builtin.copy:
+        src: docker-up.service
+        dest: /lib/systemd/system/docker-up.service 
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Just force systemd to re-execute itself (2.8 and above)
+      ansible.builtin.systemd:
+        daemon_reexec: yes
+
+    - name: Enable service httpd and ensure it is not masked
+      ansible.builtin.systemd:
+        name: docker-up
+        enabled: yes
+        
