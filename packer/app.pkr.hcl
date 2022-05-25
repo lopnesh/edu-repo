@@ -31,7 +31,7 @@ build {
     "source.amazon-ebs.basic-example"
   ]
   provisioner "ansible" {
-      playbook_file = "./ansible/playbook.yaml"
+      playbook_file = "./packer/ansible/playbook.yaml"
       user            = "ubuntu"
       use_proxy       = false
       }
