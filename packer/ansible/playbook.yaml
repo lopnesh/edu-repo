@@ -38,15 +38,7 @@
       ansible.builtin.git:
         repo: https://github.com/lopnesh/edu-repo.git
         dest: /src/edu-repo
-    
-    - name: Copy shell script
-      ansible.builtin.copy:
-        src: docker-up.sh
-        dest: /usr/bin/docker-up.sh
-        owner: root
-        group: root
-        mode: u+rw,g+rw,o+rwx
-
+  
     - name: Copy service file
       ansible.builtin.copy:
         src: docker-up.service
