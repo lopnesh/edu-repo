@@ -36,5 +36,10 @@ pipeline {
                 ]
             }
         }
+                stage("Packer ami build") {
+            steps {
+                build job: 'packer-pipeline'
+            }
+        }
     }
 }
