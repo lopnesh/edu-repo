@@ -10,7 +10,6 @@
           - ca-certificates
           - lsb-release
           - gnupg
-          - awscli
         state: latest
         update_cache: true
 
@@ -32,6 +31,7 @@
           - docker.io
           - docker-compose
           - docker-registry
+          - awscli
         state: latest
         update_cache: true
 
