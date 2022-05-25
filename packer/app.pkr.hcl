@@ -25,3 +25,5 @@ build {
       playbook_file = "./ansible/playbook.yaml"
       user            = "ubuntu"
       use_proxy       = false
+      }
+}
