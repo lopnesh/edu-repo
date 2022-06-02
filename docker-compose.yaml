@@ -23,7 +23,7 @@ services:
       JAEGER_AGENT_HOST: "jaeger"
       JAEGER_AGENT_PORT: 6831
     depends_on:
-      - loadbalancer
+      # - loadbalancer
       - logservice
     command: -loadbalancer http://loadbalancer:2001 -logservice http://logservice:6000
   cacheservice:
