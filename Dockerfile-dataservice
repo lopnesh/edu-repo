@@ -35,4 +35,4 @@ ENV DB_PORT 3306
 
 EXPOSE 4000
 
-ENTRYPOINT /usr/local/bin/wait-for ${DB_HOST}:${DB_PORT} --timeout=30 -- /usr/local/bin/dataservice
+ENTRYPOINT /usr/local/bin/wait-for ${DB_HOST}:${DB_PORT} --timeout=30 -- migrate -database "mysql://${DB_USER}:${DB_PASSWORD}@tcp(${DB_HOST}:${DB_PORT})/blog" -path=/migrations/ up && /usr/local/bin/dataservice
