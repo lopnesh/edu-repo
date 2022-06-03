@@ -17,6 +17,7 @@ resource "aws_instance" "web" {
   associate_public_ip_address = true
   vpc_security_group_ids = [aws_security_group.dev-sg.id]
   key_name                    = local.key_name
-  
-}
+
+  depends_on = [aws_db_instance.mydb, aws_db_subnet_group.default]
+  }
 
