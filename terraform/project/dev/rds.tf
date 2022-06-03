@@ -6,10 +6,17 @@ resource "aws_db_instance" "mydb" {
   name                 = "blog"
   username             = "user "
   password             = "p@ssw0rd"
-  db_subnet_group_name = "dev-public-subnet-1"
+  db_subnet_group_name = aws_dbaws_db_subnet_group.default.id
   parameter_group_name = "default.mysql5.7"
 }
+resource "aws_db_subnet_group" "default" {
+  name       = "main"
+  subnet_ids = [aws_subnet.dev-public-1.id, aws_subnet.dev-public-2.id]
 
+  tags = {
+    Name = "My DB subnet group"
+  }
+}
 resource "aws_route53_record" "database" {
   zone_id = "Z050488517TH28UEJEWBY"
   name = "rds.lopnesh.tk"
