@@ -1,15 +1,5 @@
 version: '3'
 services:
-  db:
-    image: 086913749727.dkr.ecr.eu-central-1.amazonaws.com/db:latest
-    command: --default-authentication-plugin=mysql_native_password
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: toor
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: pass
-      MYSQL_DATABASE: blog
   web-one:
     image: 086913749727.dkr.ecr.eu-central-1.amazonaws.com/web:latest
     ports:
@@ -35,10 +25,10 @@ services:
     ports:
       - "4000:4000"
     environment:
+      LISTEN_PORT: 4000
       MYSQL_HOST: rds.lopnesh.tk
       MYSQL_USER: admin
       MYSQL_PASSWORD: Gfhjkm123
-      LISTEN_PORT: 4000
       JAEGER_SAMPLER_TYPE: "const"
       JAEGER_SAMPLER_PARAM: 1
       JAEGER_SAMPLER_MANAGER_HOST_PORT: "jaeger:5778"
