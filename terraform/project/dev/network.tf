@@ -17,7 +17,7 @@ resource "aws_subnet" "dev-subnet-1" {
   availability_zone       = "eu-central-1a"
 
   tags = {
-    "Name" = "dev-subnet"
+    "Name" = "dev-subnet-1"
   }
 }
 
@@ -28,7 +28,7 @@ resource "aws_subnet" "dev-subnet-2" {
   availability_zone       = "eu-central-1b"
 
   tags = {
-    "Name" = "dev-subnet"
+    "Name" = "dev-subnet-2"
   }
 }
 
