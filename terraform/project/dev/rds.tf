@@ -10,8 +10,10 @@ resource "aws_db_instance" "mydb" {
   parameter_group_name = "default.mysql5.7"
 }
 resource "aws_db_subnet_group" "default" {
-  name       = "main"
-  subnet_ids = aws_subnet.public_subnets.id
+  name           = "main"
+  count          = length(aws_subnet.public_subnets[*].id)
+  subnet_ids     = element(aws_subnet.public_subnets[*].id, count.index)
+  
 
   tags = {
     Name = "My DB subnet group"
