@@ -11,8 +11,7 @@ resource "aws_db_instance" "mydb" {
 }
 resource "aws_db_subnet_group" "default" {
   name           = "main"
-  count          = length(aws_subnet.public_subnets[*].id)
-  subnet_ids     = element(aws_subnet.public_subnets[*].id, count.index)
+  subnet_ids     = public_subnet_ids
   
 
   tags = {
