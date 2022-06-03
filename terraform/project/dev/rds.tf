@@ -6,14 +6,13 @@ resource "aws_db_instance" "mydb" {
   name                 = "blog"
   username             = "user "
   password             = "p@ssw0rd"
-  db_subnet_group_name = aws_dbaws_db_subnet_group.default.id
+  db_subnet_group_name = aws_db_subnet_group.default.id
   parameter_group_name = "default.mysql5.7"
 }
 resource "aws_db_subnet_group" "default" {
   name           = "main"
-  subnet_ids     = aws_subnet.public_subnets[*].id
+  subnet_ids     = ["${public_subnet_ids}"]
   
-
   tags = {
     Name = "My DB subnet group"
   }
