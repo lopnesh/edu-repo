@@ -5,6 +5,7 @@ module "vpc-dev" {
   vpc_cidr             = "10.10.0.0/16"
   public_subnet_cidrs  = ["10.10.1.0/24", "10.10.2.0/24"]
   private_subnet_cidrs = []
+}
 resource "aws_security_group" "dev-sg" {
   name   = "dev-sg"
   vpc_id = aws_vpc.dev-vpc.id
