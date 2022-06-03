@@ -7,7 +7,6 @@ resource "aws_db_instance" "mydb" {
   username             = "user "
   password             = "p@ssw0rd"
   db_subnet_group_name = aws_db_subnet_group.default.id
-  parameter_group_name = "default.mysql5.7"
 }
 resource "aws_db_subnet_group" "default" {
   name           = "main"
