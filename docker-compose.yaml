@@ -7,7 +7,7 @@ services:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: toor
-      MYSQL_USER: user
+      MYSQL_USER: admin
       MYSQL_PASSWORD: pass
       MYSQL_DATABASE: blog
   web-one:
@@ -36,7 +36,7 @@ services:
       - "4000:4000"
     environment:
       MYSQL_HOST: rds.lopnesh.tk
-      MYSQL_USER: user
+      MYSQL_USER: admin
       MYSQL_PASSWORD: p@ssw0rd
       LISTEN_PORT: 4000
       JAEGER_SAMPLER_TYPE: "const"
