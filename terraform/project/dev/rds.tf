@@ -4,7 +4,7 @@ resource "aws_db_instance" "mydb" {
   engine_version       = "5.7"
   instance_class       = "db.t2.micro"
   name                 = "blog"
-  username             = "user "
+  username             = "admin"
   password             = "p@ssw0rd"
   db_subnet_group_name = aws_db_subnet_group.default.id
 }
