@@ -35,8 +35,6 @@ services:
       JAEGER_REPORTER_LOG_SPANS: "true"
       JAEGER_AGENT_HOST: "jaeger"
       JAEGER_AGENT_PORT: 6831
-    depends_on:
-      - db
   loadbalancer:
     image: 086913749727.dkr.ecr.eu-central-1.amazonaws.com/loadbalancer:latest
     ports:
