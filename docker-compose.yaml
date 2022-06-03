@@ -23,7 +23,7 @@ services:
       JAEGER_AGENT_HOST: "jaeger"
       JAEGER_AGENT_PORT: 6831
     depends_on:
-      # - loadbalancer
+      - loadbalancer
       - logservice
     command: -loadbalancer http://loadbalancer:2001 -logservice http://logservice:6000
   cacheservice:
@@ -44,21 +44,21 @@ services:
       JAEGER_AGENT_PORT: 6831
     depends_on:
       - db
-  # loadbalancer:
-  #   image: 086913749727.dkr.ecr.eu-central-1.amazonaws.com/loadbalancer:latest
-  #   ports:
-  #     - "2000:2000"
-  #     - "2001:2001"
-  #   environment:
-  #     JAEGER_SAMPLER_TYPE: "const"
-  #     JAEGER_SAMPLER_PARAM: 1
-  #     JAEGER_SAMPLER_MANAGER_HOST_PORT: "jaeger:5778"
-  #     JAEGER_REPORTER_LOG_SPANS: "true"
-  #     JAEGER_AGENT_HOST: "jaeger"
-  #     JAEGER_AGENT_PORT: 6831
-  #   command: -logservice http://logservice:6000
-  #   depends_on:
-  #     - logservice
+  loadbalancer:
+    image: 086913749727.dkr.ecr.eu-central-1.amazonaws.com/loadbalancer:latest
+    ports:
+      - "2000:2000"
+      - "2001:2001"
+    environment:
+      JAEGER_SAMPLER_TYPE: "const"
+      JAEGER_SAMPLER_PARAM: 1
+      JAEGER_SAMPLER_MANAGER_HOST_PORT: "jaeger:5778"
+      JAEGER_REPORTER_LOG_SPANS: "true"
+      JAEGER_AGENT_HOST: "jaeger"
+      JAEGER_AGENT_PORT: 6831
+    command: -logservice http://logservice:6000
+    depends_on:
+      - logservice
   logservice:
     image: 086913749727.dkr.ecr.eu-central-1.amazonaws.com/logservice:latest
     ports:
