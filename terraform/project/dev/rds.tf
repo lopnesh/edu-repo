@@ -6,11 +6,9 @@ resource "aws_db_instance" "mydb" {
   name                 = "blog"
   username             = "user "
   password             = "p@ssw0rd"
-  db_subnet_group_name = "my_database_subnet_group"
+  db_subnet_group_name = "dev-public-subnet-1"
   parameter_group_name = "default.mysql5.7"
 }
-
-
 
 resource "aws_route53_record" "database" {
   zone_id = "Z050488517TH28UEJEWBY"
