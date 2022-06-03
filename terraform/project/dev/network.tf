@@ -1,5 +1,5 @@
 module "vpc-dev" {
-  source = "../modules/aws_network"
+  source = "../../modules/aws_network"
   //  source               = "git@github.com:adv4000/terraform-modules.git//aws_network"
   env                  = "dev"
   vpc_cidr             = "10.10.0.0/16"
