@@ -11,7 +11,7 @@ resource "aws_db_instance" "mydb" {
 }
 resource "aws_db_subnet_group" "default" {
   name           = "main"
-  subnet_ids     = [module.vpc-dev.public_subnet_ids[0], module.vpc-dev.public_subnet_ids[1]]
+  subnet_ids     = [element(module.vpc-dev.public_subnet_ids, 0) element(module.vpc-dev.public_subnet_ids, 1)]
   
   tags = {
     Name = "My DB subnet group"
