@@ -37,7 +37,7 @@ services:
     environment:
       MYSQL_HOST: rds.lopnesh.tk
       MYSQL_USER: admin
-      MYSQL_PASSWORD: p@ssw0rd
+      MYSQL_PASSWORD: Gfhjkm123
       LISTEN_PORT: 4000
       JAEGER_SAMPLER_TYPE: "const"
       JAEGER_SAMPLER_PARAM: 1

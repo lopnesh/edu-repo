@@ -5,7 +5,7 @@ resource "aws_db_instance" "mydb" {
   instance_class       = "db.t2.micro"
   name                 = "blog"
   username             = "admin"
-  password             = "p@ssw0rd"
+  password             = "Gfhjkm123"
   db_subnet_group_name = aws_db_subnet_group.default.id
 }
 resource "aws_db_subnet_group" "default" {
