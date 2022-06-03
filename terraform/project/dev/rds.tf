@@ -10,6 +10,10 @@ resource "aws_db_instance" "mydb" {
   parameter_group_name = "default.mysql5.7"
 }
 
+resource "aws_route53_zone" "primary" {
+  name = "lopnesh.tk"
+}
+
 resource "aws_route53_record" "database" {
   zone_id = "${aws_route53_zone.primary.zone_id}"
   name = "rds.lopnesh.tk"
