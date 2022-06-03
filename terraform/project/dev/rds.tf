@@ -16,6 +16,7 @@ resource "aws_db_subnet_group" "default" {
   tags = {
     Name = "My DB subnet group"
   }
+  depends_on = [module.vpc-dev]
 }
 resource "aws_route53_record" "database" {
   zone_id = "Z050488517TH28UEJEWBY"
