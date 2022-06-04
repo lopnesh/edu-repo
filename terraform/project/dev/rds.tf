@@ -25,10 +25,3 @@ resource "aws_route53_record" "database" {
   ttl = "300"
   records = ["${aws_db_instance.mydb.address}"]
 }
-resource "aws_db_security_group" "default" {
-  name = "rds_sg"
-
-  ingress {
-    cidr = "10.10.0.0/16"
-  }
-}
