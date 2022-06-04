@@ -78,12 +78,6 @@ dynamic "ingress" {
     }
   }
 
-  ingress = [ {
-    from_port = 0
-    protocol = "-1"
-    security_groups = [ "sg-01bccb4f4256d975f" ]
-    to_port = 0
-  } ]
   egress {
     from_port   = 0
     to_port     = 0
