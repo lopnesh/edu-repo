@@ -8,7 +8,7 @@ resource "aws_db_instance" "mydb" {
   password             = "Gfhjkm123"
   skip_final_snapshot  = true
   db_subnet_group_name = aws_db_subnet_group.default.id
-  vpc_security_group_ids = [ aws_db_security_group.default.id ]
+  publicly_accessible  = true
 }
 resource "aws_db_subnet_group" "default" {
   name           = "main"
