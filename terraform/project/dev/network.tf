@@ -69,7 +69,7 @@ resource "aws_security_group" "dev-sg" {
   vpc_id = aws_vpc.dev-vpc.id
 
 dynamic "ingress" {
-    for_each = ["22", "3000"]
+    for_each = ["22", "3000", "3306"]
     content {
       from_port = ingress.value
       to_port   = ingress.value

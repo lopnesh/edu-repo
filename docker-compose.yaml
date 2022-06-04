@@ -26,9 +26,9 @@ services:
       - "4000:4000"
     environment:
       LISTEN_PORT: 4000
-      MYSQL_HOST: rds.lopnesh.tk
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: Gfhjkm123
+      DB_HOST: rds.lopnesh.tk
+      DB_USER: admin
+      DB_PASSWORD: Gfhjkm123
       JAEGER_SAMPLER_TYPE: "const"
       JAEGER_SAMPLER_PARAM: 1
       JAEGER_SAMPLER_MANAGER_HOST_PORT: "jaeger:5778"
